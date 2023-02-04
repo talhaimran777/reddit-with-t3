@@ -55,13 +55,6 @@ const Posts: NextPage = () => {
     ) : null;
   };
 
-  const BlogPosts: React.FC = () => {
-    return (
-      data &&
-      data.map((post: Post) => <BlogPost title={post.title} body={post.body} />)
-    );
-  };
-
   return (
     <>
       <Head>
@@ -73,7 +66,10 @@ const Posts: NextPage = () => {
       <main className="container mx-auto">
         <h1 className="text-4xl">My Latest Posts</h1>
         <Skeletons />
-        <BlogPosts />
+        {data &&
+          data.map((post: Post) => (
+            <BlogPost title={post.title} body={post.body} />
+          ))}
       </main>
     </>
   );
