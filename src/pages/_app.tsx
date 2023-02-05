@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
+import Navbar from "../components/Navbar";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +13,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <div className="flex flex-col justify-between items-start min-h-screen bg-gray-300">
+        <Navbar />
+        <div className="flex-1 w-full">
+          <Component {...pageProps} />
+        </div>
+      </div>
     </SessionProvider>
   );
 };
