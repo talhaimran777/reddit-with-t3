@@ -1,8 +1,16 @@
+import PostInitiator from "./PostInitiator";
+import Posts from "./Posts";
+
 const Layout = () => {
   return (
-    <div className="flex justify-between items-start my-10 px-2 mx-auto max-w-5xl">
-      <div className="bg-white flex-1 h-80">&nbsp;</div>
-      <div className="bg-white w-80 ml-8 h-80 hidden lg:block">&nbsp;</div>
+    <div className="mx-auto mt-16 mb-10 flex max-w-5xl items-start justify-between px-2">
+      <div className="flex flex-1 flex-col">
+        <div className="mb-3 rounded-sm border border-gray-400 bg-white">
+          <PostInitiator />
+        </div>
+        <Posts />
+      </div>
+      <div className="ml-8 hidden h-80 w-80 bg-white lg:block">&nbsp;</div>
     </div>
   );
 };
