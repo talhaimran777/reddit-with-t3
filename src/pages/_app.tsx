@@ -1,24 +1,28 @@
-import { type AppType } from "next/app";
+import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { type AppType } from "next/app";
 
 import { api } from "../utils/api";
 
-import "../styles/globals.css";
 import Navbar from "../components/Navbar";
+import "../styles/globals.css";
+import theme from "../theme";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const customTheme = extendTheme(theme);
+
   return (
     <SessionProvider session={session}>
-      <div className="flex flex-col justify-between items-start min-h-screen bg-gray-300">
-        <Navbar />
-        <div className="flex-1 w-full">
+      <ChakraProvider theme={customTheme}>
+        <Box bg="sbg" h="100vh">
+          <Navbar />
           <Component {...pageProps} />
-        </div>
-      </div>
+        </Box>
+      </ChakraProvider>
     </SessionProvider>
   );
 };

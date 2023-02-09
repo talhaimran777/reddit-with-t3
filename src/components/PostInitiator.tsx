@@ -1,21 +1,27 @@
-import { useRouter } from "next/router";
+import { Avatar, AvatarBadge, Flex, Input } from "@chakra-ui/react";
 
 const PostInitiator = () => {
-  const router = useRouter();
-
   return (
-    <div className="flex rounded-sm border border-gray-100 p-2">
-      <div className="h-10 w-10 rounded-full bg-gray-200">&nbsp;</div>
-      <input
-        onClick={() => router.push("/submit")}
-        name="input"
+    <Flex
+      border="1px"
+      borderColor="border"
+      mb="4"
+      bg="pbg"
+      p="3"
+      align="center"
+    >
+      <Avatar mr="3" size="sm" src="https://bit.ly/broken-link">
+        <AvatarBadge boxSize="1.25em" bg="green.500" />
+      </Avatar>
+
+      <Input
+        // onClick={navigateToPostCreation}
         placeholder="Create Post"
-        className="ml-2 flex-1 rounded-md
-        bg-gray-100 py-2 px-4 text-sm hover:outline hover:outline-1
-        hover:outline-blue-600
-        focus:outline-none"
+        _focus={{
+          outline: "none",
+        }}
       />
-    </div>
+    </Flex>
   );
 };
 export default PostInitiator;

@@ -1,96 +1,108 @@
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  AtSignIcon,
+  ChatIcon,
+} from "@chakra-ui/icons";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+
 const Post = () => {
   const PostHeader = () => {
     return (
-      <div className="mb-3 flex">
-        <div className="h-5 w-5 rounded-full bg-gray-200">&nbsp;</div>
-        <p className="ml-2 text-xs font-bold">u/talhaimran</p>
-        <p className="ml-2 text-xs text-gray-600">15 hours ago</p>
-      </div>
+      <Box mb="2">
+        <Flex
+          align={{ base: "flex-start", md: "center" }}
+          direction={{ base: "column", md: "row" }}
+        >
+          <Flex align="center">
+            <AtSignIcon h="3" color="pc" mr="0.5" />
+            <Text mr="1" fontSize="12px" fontWeight="bold" color="sh">
+              r/reddit
+            </Text>
+          </Flex>
+          <Text fontSize="12px" fontWeight="normal" color="st">
+            Posted by u/talhaimran 15.hours ago
+          </Text>
+        </Flex>
+      </Box>
     );
   };
 
   const PostBody = () => {
     return (
-      <div className="mb-3">
-        <h1 className="text-md mb-1 font-semibold">
-          What does the python prompt mean?
-        </h1>
-        <p className="text-justify text-sm text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          commodi aut aliquam tempore assumenda sapiente explicabo enim, et id
-          quae atque facere rerum, similique beatae alias vel! Sequi, ducimus
-          dolore!
-        </p>
-      </div>
+      <Box mb="2">
+        <Heading
+          as="h3"
+          mb="2"
+          fontSize="18px"
+          size="lg"
+          fontWeight="semibold"
+          color="ph"
+        >
+          Test Post Title
+        </Heading>
+        <Text fontSize="14px" fontWeight="normal" color="pt" align="justify">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+          ipsum dolor sit amet.
+        </Text>
+      </Box>
     );
   };
 
   const PostFooter = () => {
     return (
-      <div className="flex">
-        <div className="text-bold rounded-sm p-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-200">
-          5 Comments
-        </div>
-      </div>
+      <Box>
+        {/* {!showComments && ( */}
+        <Flex cursor="pointer">
+          <Box p="2" display="flex" _hover={{ bg: "sbg" }}>
+            <ChatIcon color="st" fontSize="18px" mr="2" />
+            <Text fontSize="12px" fontWeight="bold" color="st">
+              5 Comments
+            </Text>
+          </Box>
+        </Flex>
+        {/* )} */}
+
+        {/* {showComments && ( */}
+        {/* <Box h="min-content" my="4"> */}
+        {/*   <Comments setShowComments={setShowComments} /> */}
+        {/* </Box> */}
+        {/* )} */}
+      </Box>
     );
   };
 
-  const UpVoteIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601L17.919 12H15z"
-      />
-    </svg>
-  );
-
-  const DownVoteIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M20.901 10.566A1.001 1.001 0 0 0 20 10h-4V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H4a1.001 1.001 0 0 0-.781 1.625l8 10a1 1 0 0 0 1.562 0l8-10c.24-.301.286-.712.12-1.059zM12 19.399L6.081 12H10V4h4v8h3.919L12 19.399z"
-      />
-    </svg>
-  );
-
   return (
-    <div className="border-1 my-1 flex justify-between border border-gray-400 bg-white">
-      <div className="flex flex-col items-center bg-gray-100 p-2">
-        <div className="mb-1 cursor-pointer text-gray-400 hover:text-red-400">
-          {UpVoteIcon}
-        </div>
-        <span className="text-xs">85</span>
-        <div className="mt-1 cursor-pointer text-gray-400 hover:text-green-400">
-          {DownVoteIcon}
-        </div>
-      </div>
-      <div className="flex-1 p-2">
+    <Flex
+      height="-webkit-fit-content"
+      border="1px"
+      borderColor="border"
+      mb="2.5"
+    >
+      <Flex p="2" bg="tbg">
+        <Flex direction="column">
+          <ArrowUpIcon fontSize="20" mb="1" _hover={{ bg: "sbg" }} color="pt" />
+          <Text fontSize="16px" fontWeight="bold" color="pt" mb="1">
+            14
+          </Text>
+          <ArrowDownIcon fontSize="20" _hover={{ bg: "sbg" }} color="pt" />
+        </Flex>
+      </Flex>
+      <Box bg="pbg" px="2" pt="3" pb="1.5" width="100%">
         <PostHeader />
         <PostBody />
         <PostFooter />
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 };
 
 const Posts = () => {
   return (
     <>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
       <Post />
     </>
   );
