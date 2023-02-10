@@ -14,7 +14,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import TopCommunities from "../../components/TopCommunities";
+import TopCommunities from "components/TopCommunities";
 
 const CreatePost: NextPage = () => {
   const PostCreator = (

@@ -1,7 +1,7 @@
 import { Box, Container, Flex } from "@chakra-ui/react";
-import PostInitiator from "./PostInitiator";
-import Posts from "./Posts";
-import TopCommunities from "./TopCommunities";
+import PostInitiator from "components/PostInitiator";
+import Posts from "components/Posts";
+import TopCommunities from "components/TopCommunities";
 
 const Layout = () => {
   return (

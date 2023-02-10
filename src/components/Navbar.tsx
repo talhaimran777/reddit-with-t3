@@ -1,6 +1,12 @@
-import { Avatar, Flex, Image } from "@chakra-ui/react";
+import { Avatar, Button, Flex, Image } from "@chakra-ui/react";
+import { signIn, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react"
+import NavigationMenu from "components/NavigationMenu";
 
 const Navbar = () => {
+  const { data } = useSession();
+  const isAuthenticated = data?.user;
+
   return (
     <Flex
       bg="pbg"
@@ -22,43 +28,26 @@ const Navbar = () => {
           src="/redditText.svg"
           height="46px"
         />
-        {/* {auth.isAuthenticated && ( */}
-        {/*   <NavigationMenu/> */}
-        {/* )} */}
+        {isAuthenticated && (
+          <NavigationMenu/>
+        )}
       </Flex>
 
-      {/* {!auth.isAuthenticated && ( */}
-      {/*   <Flex align="center" display={{ base: "none", md: "flex" }}> */}
-      {/*     <Button */}
-      {/*       text="Login" */}
-      {/*       secondary={true} */}
-      {/*       customStyling={{ ...commonButtonStyles, ...loginButtonStyles }} */}
-      {/*       handlers={authModalhandlers("login")} */}
-      {/*     /> */}
-      {/*     <Button */}
-      {/*       text="Sign Up" */}
-      {/*       primary={true} */}
-      {/*       customStyling={{ ...commonButtonStyles }} */}
-      {/*       handlers={authModalhandlers("signup")} */}
-      {/*     /> */}
-      {/*     <AuthModal /> */}
-      {/*   </Flex> */}
-      {/* )} */}
-      {/* {auth.isAuthenticated && ( */}
-      {/*   <Flex align="center" display={{ base: "none", md: "flex" }}> */}
-      {/*     <Button */}
-      {/*       text="Logout" */}
-      {/*       primary={true} */}
-      {/*       customStyling={{ ...commonButtonStyles, ...loginButtonStyles }} */}
-      {/*       handlers={logoutHandler()} */}
-      {/*     /> */}
-      <Avatar
-        size="sm"
-        name={"Talha Imran"}
-        // src={auth.user?.profile_image}
-      />
-      {/*   </Flex> */}
-      {/* )} */}
+      {!isAuthenticated && (
+        <Flex align="center" display={{ base: "none", md: "flex" }}>
+          <Button onClick = {() => signIn()}>Login</Button>
+        </Flex>
+      )}
+      {isAuthenticated && (
+        <Flex align="center" display={{ base: "none", md: "flex" }}>
+          <Button onClick={() => signOut()}>Logout</Button>
+          <Avatar
+            size="sm"
+            name={"Talha Imran"}
+            // src={auth.user?.profile_image}
+          />
+        </Flex>
+      )}
     </Flex>
   );
 };
