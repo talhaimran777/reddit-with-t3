@@ -1,6 +1,9 @@
 import { Avatar, AvatarBadge, Flex, Input } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const PostInitiator = () => {
+  const router = useRouter();
+
   return (
     <Flex
       border="1px"
@@ -15,7 +18,7 @@ const PostInitiator = () => {
       </Avatar>
 
       <Input
-        // onClick={navigateToPostCreation}
+        onClick={() => router.push("/submit")}
         placeholder="Create Post"
         _focus={{
           outline: "none",
