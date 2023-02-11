@@ -14,6 +14,7 @@ const Layout = () => {
         <Box
           flex={{ base: "1", lg: "0.67" }}
           width={{ base: "100%", md: "660px" }}
+          mx={{ base: "auto" }}
           mr={{ lg: "6" }}
         >
           <PostInitiator />

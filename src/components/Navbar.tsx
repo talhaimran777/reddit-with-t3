@@ -1,11 +1,22 @@
-import { Avatar, Button, Flex, Image } from "@chakra-ui/react";
+import { Avatar, Flex, Image } from "@chakra-ui/react";
 import { signIn, useSession } from "next-auth/react";
-import { signOut } from "next-auth/react"
+import { signOut } from "next-auth/react";
 import NavigationMenu from "components/NavigationMenu";
+import Button from "components/Button";
 
 const Navbar = () => {
   const { data } = useSession();
   const isAuthenticated = data?.user;
+
+  const commonButtonStyles: any = {
+    py: "1.5",
+    px: "9",
+    cursor: "pointer",
+  };
+
+  const loginButtonStyles: any = {
+    mr: "3",
+  };
 
   return (
     <Flex
@@ -28,19 +39,36 @@ const Navbar = () => {
           src="/redditText.svg"
           height="46px"
         />
-        {isAuthenticated && (
-          <NavigationMenu/>
-        )}
+        {isAuthenticated && <NavigationMenu />}
       </Flex>
 
       {!isAuthenticated && (
         <Flex align="center" display={{ base: "none", md: "flex" }}>
-          <Button onClick = {() => signIn()}>Login</Button>
+          {/* <Button onClick = {() => signIn()}>Login</Button> */}
+
+          <Button
+            text="Login"
+            secondary={true}
+            customStyling={{ ...commonButtonStyles, ...loginButtonStyles }}
+            handlers={{ onClick: () => signIn() }}
+          />
+          {/* <Button */}
+          {/*   text="Sign Up" */}
+          {/*   primary={true} */}
+          {/*   customStyling={{ ...commonButtonStyles }} */}
+          {/*   handlers={authModalhandlers("signup")} */}
+          {/* /> */}
         </Flex>
       )}
       {isAuthenticated && (
         <Flex align="center" display={{ base: "none", md: "flex" }}>
-          <Button onClick={() => signOut()}>Logout</Button>
+          {/* <Button onClick={() => signOut()}>Logout</Button> */}
+          <Button
+            text="Logout"
+            primary={true}
+            customStyling={{ ...commonButtonStyles, ...loginButtonStyles }}
+            handlers={{ onClick: () => signOut() }}
+          />
           <Avatar
             size="sm"
             name={"Talha Imran"}

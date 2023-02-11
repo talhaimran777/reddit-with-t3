@@ -4,7 +4,36 @@ import {
   AtSignIcon,
   ChatIcon,
 } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  Input,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+
+import { CloseIcon } from "@chakra-ui/icons";
+import { useRef, useState } from "react";
+
+interface Comment {
+  id?: Number;
+  commentBy: String;
+  body: String;
+  replies: Comment[] | [];
+}
+
+interface CommentProps {
+  id?: Number;
+  replies: Comment[] | [];
+  commentBy: String;
+  body: String;
+}
+
+interface CommentsSystemProps {
+  setShowComments: any;
+}
 
 const Post = () => {
   const PostHeader = () => {
@@ -21,7 +50,7 @@ const Post = () => {
             </Text>
           </Flex>
           <Text fontSize="12px" fontWeight="normal" color="st">
-            Posted by u/talhaimran 15.hours ago
+            Posted by u/talhaimran 3 months ago
           </Text>
         </Flex>
       </Box>
@@ -39,38 +68,200 @@ const Post = () => {
           fontWeight="semibold"
           color="ph"
         >
-          Test Post Title
+          Learn Docker
         </Heading>
         <Text fontSize="14px" fontWeight="normal" color="pt" align="justify">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet.
+          Today, I will be showing how you can dockering rails app.
         </Text>
       </Box>
     );
   };
 
-  const PostFooter = () => {
+  const comments = [
+    {
+      id: 1,
+      commentBy: "r/hamza",
+      body: `Pretty print actually works with multiple arguments too, where as
+      the above expects the second argument to be options to inspect which is
+      probably not intentional.`,
+      replies: [
+        {
+          id: 3,
+          commentBy: "r/talha",
+          body: `I'm really satisfied with new neovim version.`,
+          replies: [],
+        },
+      ],
+    },
+    {
+      id: 2,
+      commentBy: "r/talha",
+      body: `Testing out new neovim version.`,
+      replies: [],
+    },
+  ];
+
+  const Comment: React.FC<CommentProps> = ({
+    id,
+    replies,
+    commentBy,
+    body,
+  }) => {
+    const [replying, setReplying] = useState(false);
+    const replyInputRef: any = useRef(null);
+
+    const replyHandler = async () => {
+      // Todo: Write Reply Handler Logic
+      const data = {
+        comment: {
+          body: "Nice one!",
+          post_id: 1,
+          user_id: 1,
+        },
+      };
+    };
+
     return (
-      <Box>
-        {/* {!showComments && ( */}
-        <Flex cursor="pointer">
-          <Box p="2" display="flex" _hover={{ bg: "sbg" }}>
-            <ChatIcon color="st" fontSize="18px" mr="2" />
-            <Text fontSize="12px" fontWeight="bold" color="st">
-              5 Comments
+      <Box px="2" w="full">
+        <Flex mt="5">
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align="center"
+            mr="2"
+            position={"relative"}
+          >
+            <Avatar mb="2" mt="-1" size="xs" src="https://bit.ly/broken-link" />
+            <Box w="1" flex="1" bg="gray.200" mt="1">
+              &nbsp;
+            </Box>
+            <Box
+              h="1"
+              w="4"
+              flex="1"
+              bg="gray.200"
+              position={"absolute"}
+              top="8"
+              left="3"
+            >
+              &nbsp;
+            </Box>
+          </Flex>
+          <Box w="full">
+            <Flex mb="2" align="center">
+              <Text fontSize="12px" fontWeight="bold" color="st" mr={"2"}>
+                u/{commentBy}
+              </Text>
+
+              <Text
+                fontSize="10px"
+                fontWeight="normal"
+                color="st"
+                cursor="pointer"
+              >
+                17.hours ago
+              </Text>
+            </Flex>
+
+            <Text
+              fontSize="14px"
+              fontWeight="normal"
+              color="st"
+              mt="-1"
+              ml="1"
+              align={"justify"}
+            >
+              {body}
             </Text>
+
+            <Box
+              mt="2"
+              ml="-2"
+              p="2"
+              cursor="pointer"
+              _hover={{ bg: "sbg" }}
+              w="min-content"
+              onClick={() => setReplying(true)}
+            >
+              <Flex>
+                <ChatIcon color="st" fontSize="18px" mr="2" />
+                <Text fontSize="12px" fontWeight="bold" color="st">
+                  Reply
+                </Text>
+              </Flex>
+            </Box>
+
+            {replying && (
+              <Flex justify="center" align="center" mt="4">
+                <Input name="reply" mr="3" ref={replyInputRef} />
+                <Button mr="3" size="sm" onClick={replyHandler}>
+                  Reply
+                </Button>
+                <Button mr="3" size="sm" onClick={() => setReplying(false)}>
+                  Close
+                </Button>
+              </Flex>
+            )}
+
+            {replies.map((reply) => (
+              <Box ml="-4">
+                <Comment
+                  id={reply.id}
+                  replies={reply.replies}
+                  commentBy={reply.commentBy}
+                  body={reply.body}
+                />
+              </Box>
+            ))}
           </Box>
         </Flex>
-        {/* )} */}
+      </Box>
+    );
+  };
 
-        {/* {showComments && ( */}
-        {/* <Box h="min-content" my="4"> */}
-        {/*   <Comments setShowComments={setShowComments} /> */}
-        {/* </Box> */}
-        {/* )} */}
+  const Comments: React.FC<CommentsSystemProps> = ({ setShowComments }) => {
+    return (
+      <Flex align="center" justify="center" direction="column" w="full">
+        {comments.map((comment) => (
+          <Comment
+            id={comment.id}
+            replies={comment.replies}
+            commentBy={comment.commentBy}
+            body={comment.body}
+          />
+        ))}
+        <CloseIcon
+          mt="10"
+          cursor="pointer"
+          fontSize="20"
+          color="pt"
+          onClick={() => setShowComments(false)}
+        />
+      </Flex>
+    );
+  };
+
+  const PostFooter = () => {
+    const [showComments, setShowComments] = useState(false);
+
+    return (
+      <Box>
+        {!showComments && (
+          <Flex cursor="pointer" onClick={() => setShowComments(!showComments)}>
+            <Box p="2" display="flex" _hover={{ bg: "sbg" }}>
+              <ChatIcon color="st" fontSize="18px" mr="2" />
+              <Text fontSize="12px" fontWeight="bold" color="st">
+                5 Comments
+              </Text>
+            </Box>
+          </Flex>
+        )}
+
+        {showComments && (
+          <Box h="min-content" my="4">
+            <Comments setShowComments={setShowComments} />
+          </Box>
+        )}
       </Box>
     );
   };

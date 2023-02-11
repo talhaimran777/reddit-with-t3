@@ -1,4 +1,5 @@
-import { Text, Box, Skeleton, Flex, Avatar, Button } from "@chakra-ui/react";
+import { Text, Box, Skeleton, Flex, Avatar } from "@chakra-ui/react";
+import Button from "components/Button";
 
 const TopCommunities = () => {
   return (
@@ -35,17 +36,23 @@ const TopCommunities = () => {
           <Flex align="center">
             <Avatar mr="2" size="sm" src="https://bit.ly/broken-link" />
             <Text fontSize="14px" fontWeight="normal" color="pt">
-              reddit
+              r/reddit
             </Text>
           </Flex>
         </Flex>
 
-        <Button size="xs">Join</Button>
+        <Button text="Join" primary={true} />
       </Flex>
       <Box py="3" px="3">
-        <Button w="100%" colorScheme="blue" variant="solid" size="xs">
-          View All
-        </Button>
+        <Button
+          text="View All"
+          primary={true}
+          customStyling={{
+            py: "1.5",
+            align: "center",
+            w: "100%",
+          }}
+        />
       </Box>
     </Box>
   );
