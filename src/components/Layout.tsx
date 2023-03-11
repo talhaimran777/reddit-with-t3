@@ -1,9 +1,11 @@
 import { Box, Container, Flex } from "@chakra-ui/react";
-import PostInitiator from "components/PostInitiator";
-import Posts from "components/Posts";
-import TopCommunities from "components/TopCommunities";
 
-const Layout = () => {
+interface Props {
+  Left: React.FC;
+  Right: React.FC;
+}
+
+const Layout: React.FC<Props> = ({ Left, Right }) => {
   return (
     <Flex flex="1" pt="5">
       <Container
@@ -17,14 +19,13 @@ const Layout = () => {
           mx={{ base: "auto" }}
           mr={{ lg: "6" }}
         >
-          <PostInitiator />
-          <Posts />
+          <Left />
         </Box>
         <Box
           display={{ base: "none", lg: "block" }}
           flex={{ base: "1", lg: "0.33" }}
         >
-          <TopCommunities />
+          <Right />
         </Box>
       </Container>
     </Flex>

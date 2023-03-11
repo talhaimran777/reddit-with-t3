@@ -35,7 +35,7 @@ interface CommentsSystemProps {
   setShowComments: any;
 }
 
-const Post = () => {
+const Post: React.FC = () => {
   const PostHeader = () => {
     return (
       <Box mb="2">
@@ -291,7 +291,7 @@ const Post = () => {
   );
 };
 
-const Posts = () => {
+const Posts: React.FC = () => {
   return (
     <>
       <Post />
