@@ -12,7 +12,7 @@ const ProfileHeader = () => {
   };
 
   return (
-    <Box h="100px" bg="white">
+    <Box h="100px" bg="white" px={{ base: "3", lg: "0" }}>
       <Container
         maxW="970px"
         display="flex"
@@ -21,7 +21,13 @@ const ProfileHeader = () => {
         h="100%"
         p="0"
       >
-        <Flex alignItems="center" gap="4" mt="-4">
+        <Flex
+          alignItems="center"
+          gap="4"
+          mt="-4"
+          width={{ base: "100%", md: "660px", lg: "100%" }}
+          mx="auto"
+        >
           <Box
             h="80px"
             w="80px"
@@ -29,6 +35,7 @@ const ProfileHeader = () => {
             bg="black"
             borderColor="white"
             borderWidth={"thick"}
+            ml={{ md: "-2" }}
           />
           <Text fontSize="2xl" fontWeight="bold">
             r/{query.slug}

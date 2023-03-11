@@ -3,7 +3,7 @@ import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 const AboutCommunity: React.FC = () => {
   return (
     <Box border="1px" borderColor="border" mb="2" bg="pbg">
-      <Flex h="40px" w="100%" bg="blue.500" align="center" px="4" py="2">
+      <Flex h="40px" w="100%" bg="red.400" align="center" px="4" py="2">
         <Text fontSize="16px" fontWeight="semibold" color="tt">
           About Community
         </Text>
