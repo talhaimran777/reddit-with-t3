@@ -16,6 +16,7 @@ import {
 
 import { CloseIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
+import { api } from "../utils/api";
 
 interface Comment {
   id?: Number;
@@ -35,7 +36,12 @@ interface CommentsSystemProps {
   setShowComments: any;
 }
 
-const Post: React.FC = () => {
+interface PostProps {
+  title: String;
+  body: String;
+}
+
+const Post: React.FC<PostProps> = ({ title, body }) => {
   const PostHeader = () => {
     return (
       <Box mb="2">
@@ -68,10 +74,10 @@ const Post: React.FC = () => {
           fontWeight="semibold"
           color="ph"
         >
-          Learn Docker
+          {title}
         </Heading>
         <Text fontSize="14px" fontWeight="normal" color="pt" align="justify">
-          Today, I will be showing how you can dockering rails app.
+          {body}
         </Text>
       </Box>
     );
@@ -292,9 +298,13 @@ const Post: React.FC = () => {
 };
 
 const Posts: React.FC = () => {
+  const { isLoading, data } = api.post.getPosts.useQuery();
+
   return (
     <>
-      <Post />
+      {!isLoading &&
+        data &&
+        data.map((post: any) => <Post title={post.title} body={post.body} />)}
     </>
   );
 };

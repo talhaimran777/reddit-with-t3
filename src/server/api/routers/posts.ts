@@ -1,9 +1,18 @@
-import { z } from "zod";
-
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const postRouter = createTRPCRouter({
-  getPosts: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.post.findMany();
-  })
+  getPosts: publicProcedure.query(async ({ ctx }) => {
+    if (ctx.session?.user.id) {
+      const data = await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+        include: {
+          posts: true,
+        },
+      });
+
+      return data && data.posts;
+    }
+  }),
 });
