@@ -1,7 +1,7 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const postRouter = createTRPCRouter({
-  getPosts: publicProcedure.query(async ({ ctx }) => {
+  getPosts: protectedProcedure.query(async ({ ctx }) => {
     if (ctx.session?.user.id) {
       const data = await ctx.prisma.user.findUnique({
         where: {

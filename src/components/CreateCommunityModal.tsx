@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "components/Button";
 import React from "react";
+import { api } from "../utils/api";
 
 interface Props {
   show: boolean;
@@ -36,14 +37,23 @@ const cancelButtonStyles: any = {
 };
 
 const CreateCommunityModal: React.FC<Props> = ({ show, setShow }) => {
-  const [form, setForm] = React.useState({
-    type: "public",
+  interface StateType {
+    name: string;
+    type: "PUBLIC" | "PRIVATE";
+  }
+
+  const communityCreateMutation = api.community.createCommunity.useMutation({
+    onSuccess: (data) => console.log("YOYO, Success", data),
+  });
+
+  const [form, setForm] = React.useState<StateType>({
+    type: "PUBLIC",
     name: "",
   });
 
   const handleCommunityCreation = (e: any) => {
     e.preventDefault();
-    console.log(form);
+    communityCreateMutation.mutate({ type: "PUBLIC", name: "" });
   };
 
   const handleRadioChange = (value: string) => {
@@ -92,17 +102,12 @@ const CreateCommunityModal: React.FC<Props> = ({ show, setShow }) => {
           </FormLabel>
           <RadioGroup onChange={handleRadioChange} value={form.type}>
             <Stack>
-              <Radio value="public">
+              <Radio value="PUBLIC">
                 <Text fontSize="sm" fontWeight="medium">
                   Public
                 </Text>
               </Radio>
-              <Radio value="restricted">
-                <Text fontSize="xs" fontWeight="medium">
-                  Restricted
-                </Text>
-              </Radio>
-              <Radio value="private">
+              <Radio value="PRIVATE">
                 <Text fontSize="xs" fontWeight="medium">
                   Private
                 </Text>
